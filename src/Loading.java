@@ -24,7 +24,7 @@ public class Loading extends JFrame implements Runnable{
         getContentPane().setBackground(Color.white);
         setLayout(null);
 
-        JLabel text = new JLabel("Travel and Tourisim Application");
+        JLabel text = new JLabel("Travel and Tourism Application");
         text.setForeground(Color.blue);
         text.setFont(new Font("Raleway", Font.BOLD, 35));
         text.setBounds(50, 20, 600, 40);
@@ -70,7 +70,7 @@ public class Loading extends JFrame implements Runnable{
     
             
         } catch (InterruptedException e) {
-            JOptionPane.showMessageDialog(null, "Unexpected Error Has Occoured While Loading"+e.getMessage(),"Thread Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Unexpected Error Has occurred While Loading"+e.getMessage(),"Thread Error",JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
         

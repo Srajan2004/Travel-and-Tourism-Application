@@ -95,7 +95,7 @@ public class Forgetpassword extends JFrame implements ActionListener {
         answertf.addActionListener(this);
         p1.add(answertf);
 
-        retrive = new JButton("Retrive");
+        retrive = new JButton("Retrieve");
         retrive.setBackground(Color.gray);
         retrive.setForeground(Color.white);
         retrive.setBounds(380, 140, 100, 25);
@@ -142,7 +142,7 @@ public class Forgetpassword extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "User not found.", "Info", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Database Error accoured\n" + e.getMessage(), "DataBase Error",
+                JOptionPane.showMessageDialog(null, "Database Error occurred\n" + e.getMessage(), "DataBase Error",
                         JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }

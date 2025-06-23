@@ -127,11 +127,11 @@ public class Signup extends JFrame implements ActionListener {
                 return;
             }
             if (name.equals("")) {
-                JOptionPane.showMessageDialog(null, "Name is Requierd");
+                JOptionPane.showMessageDialog(null, "Name is Required");
                 return;
             }
             if (password.equals("")) {
-                JOptionPane.showMessageDialog(null, "Password is Requierd");
+                JOptionPane.showMessageDialog(null, "Password is Required");
                 return;
             }
             if (!password.matches(".*[A-Z].*")) {
@@ -161,7 +161,7 @@ public class Signup extends JFrame implements ActionListener {
                 }
             } catch (SQLException e) {
 
-                JOptionPane.showMessageDialog(null, "Database Error accoured\n" + e.getMessage(), "DataBase Error",
+                JOptionPane.showMessageDialog(null, "Database Error occurred\n" + e.getMessage(), "DataBase Error",
                         JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }

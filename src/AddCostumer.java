@@ -43,7 +43,8 @@ public class AddCostumer extends JFrame {
         add(verification_number);
 
         JLabel lblname = new JLabel();
-        lblname.setBounds();
+        lblname.setBounds(30, 170, 150, 25); // Example position and size, adjust as needed
+        add(lblname);
 
         setVisible(true);
     }

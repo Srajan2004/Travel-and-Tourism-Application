@@ -115,7 +115,7 @@ public class Login extends JFrame implements ActionListener {
           setVisible(false); //*~~~~Calling a new class Constructor ~~~~~ */
           new Loading(username);
         } else {
-          JOptionPane.showMessageDialog(this, "Invalid Usernaem or Password.", "Login Failed",
+          JOptionPane.showMessageDialog(this, "Invalid Username or Password.", "Login Failed",
               JOptionPane.ERROR_MESSAGE);
         }
 
