@@ -62,7 +62,7 @@ public class Loading extends JFrame implements Runnable{
                 else{
 
                     setVisible(false);
-                    new Dashboard().setVisible(true);
+                    new Dashboard(username).setVisible(true);
                     //*Calling a new class Object: */
                 }
                 Thread.sleep(40);
