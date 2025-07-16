@@ -159,7 +159,6 @@ public class AddCostumer extends JFrame implements ActionListener {
                 con.close();
             }
         }
-        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent ae) {

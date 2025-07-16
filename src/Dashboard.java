@@ -15,12 +15,17 @@ public class Dashboard extends JFrame implements ActionListener {
     JButton addpersonaldetail, viewpersonaldetail, deletepersonaldetail, checkpackages,
             bookpackage, viewpackage, viewhotels, bookhotel, viewbookedbookhotel, destinations, payments, calculator,
             notepad, about, exit;
-
     String username;
+    AddCostumer var1;
+    ViewCustomer var2;
+    CheckPackages var3;
 
     Dashboard(String username) {
         this.username = username;
-
+        var1 = new AddCostumer(username);
+        var2 = new ViewCustomer(username);
+        var3 = new CheckPackages();
+        // Frame Settings:
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -206,9 +211,17 @@ public class Dashboard extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == addpersonaldetail) {
-            new AddCostumer(username);
+            var2.setVisible(false);
+            var3.setVisible(false);
+            var1.setVisible(true);
         } else if (ae.getSource() == viewpersonaldetail) {
-            new ViewCustomer(username);
+            var1.setVisible(false);
+            var3.setVisible(false);
+            var2.setVisible(true);
+        } else if (ae.getSource() == checkpackages) {
+            var1.setVisible(false);
+            var2.setVisible(false);
+            var3.setVisible(true);
         } else if (ae.getSource() == exit) {
             setVisible(false);
             new Login();
