@@ -16,7 +16,7 @@ public class Dashboard extends JFrame implements ActionListener {
             bookpackage, viewpackage, viewhotels, bookhotel, viewbookedbookhotel, destinations, payments, calculator,
             notepad, about, exit;
     String username;
-    AddCostumer var1;
+    AddCostumer var1;//variabels to hold the class objects of the Button classes to get more reliable interface :
     ViewCustomer var2;
     CheckPackages var3;
 

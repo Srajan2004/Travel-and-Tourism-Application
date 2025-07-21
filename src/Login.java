@@ -23,6 +23,7 @@ public class Login extends JFrame implements ActionListener {
   JButton login, signup, forgetpassword;
 
   Login() {
+    //Frame settings
     setSize(900, 400);
     setLocation(350, 200);
     ImageIcon logo = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png"));
@@ -31,7 +32,7 @@ public class Login extends JFrame implements ActionListener {
     getContentPane().setBackground(Color.white);
     setResizable(false);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+//------------
     JPanel p1 = new JPanel();
     p1.setBackground(new Color(131, 193, 233));
     p1.setBounds(0, 0, 400, 400);
@@ -98,9 +99,10 @@ public class Login extends JFrame implements ActionListener {
 
     setVisible(true);
   }
-
+//actionPerformed method listens to events in frame and do the desired implementation:
   public void actionPerformed(ActionEvent ae) {
     if (ae.getSource() == login) {
+      //Data base and SQL implementation:
       String username = usernametf.getText();
       String password = new String(passwordtf.getPassword());
       Conn conn =null;
@@ -112,7 +114,7 @@ public class Login extends JFrame implements ActionListener {
         ps.setString(2, password);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-          setVisible(false); //*~~~~Calling a new class Constructor ~~~~~ */
+          setVisible(false); //*~~~~Calling a new Loading class Constructor ~~~~~ */
           new Loading(username);
         } else {
           JOptionPane.showMessageDialog(this, "Invalid Username or Password.", "Login Failed",
