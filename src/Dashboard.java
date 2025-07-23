@@ -224,7 +224,7 @@ public class Dashboard extends JFrame implements ActionListener {
             var3.setVisible(true);
         } else if (ae.getSource() == exit) {
             setVisible(false);
-            new Login();
+            new main();
         }
     }
 

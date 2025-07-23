@@ -179,7 +179,7 @@ public class Signup extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null,
                         "Account Created Successfully\nUsername: " + username + "\nPassword: " + password);
                 setVisible(false);
-                new Login();
+                new main();
 
             } catch (SQLException sqlEx) {
                 JOptionPane.showMessageDialog(this,
@@ -205,7 +205,7 @@ public class Signup extends JFrame implements ActionListener {
         }
         if (ae.getSource() == back) {
             setVisible(false);
-            new Login();
+            new main();
         }
     }
 

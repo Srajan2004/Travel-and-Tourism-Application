@@ -176,7 +176,7 @@ public class Forgetpassword extends JFrame implements ActionListener {
         } else if (ae.getSource() == back) {
 
             setVisible(false);
-            new Login();
+            new main();
 
         }
 
