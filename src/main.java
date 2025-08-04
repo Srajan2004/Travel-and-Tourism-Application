@@ -17,12 +17,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class main extends JFrame implements ActionListener {
+public class Main extends JFrame implements ActionListener {
   JTextField usernametf;
   JPasswordField passwordtf;
   JButton login, signup, forgetpassword;
 
-  main() {
+  Main() {
     //Frame settings
     setSize(900, 400);
     setLocation(350, 200);
@@ -150,6 +150,6 @@ public class main extends JFrame implements ActionListener {
   }
 
   public static void main(String[] args) {
-    new main();
+    new Main();
   }
 }

@@ -9,8 +9,10 @@ BookPackages(){
         ImageIcon logo = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png"));
         setIconImage(logo.getImage());
         getContentPane().setBackground(Color.white);
+        setBounds(350,200,1100,500);
+        setVisible(true);
 }
 public static void main(String[] args) {
-
+new BookPackages();
 }
 }
