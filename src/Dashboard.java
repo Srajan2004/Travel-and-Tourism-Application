@@ -19,6 +19,7 @@ public class Dashboard extends JFrame implements ActionListener {
     AddCostumer var1;//variabels to hold the class objects of the Button classes to get more reliable interface :
     ViewCustomer var2;
     CheckPackages var3;
+    BookPackages var4 ;
 
     Dashboard(String username) {
         this.username = username;
@@ -223,6 +224,9 @@ public class Dashboard extends JFrame implements ActionListener {
             var2.setVisible(false);
             var3.setVisible(true);
         } else if (ae.getSource() == exit) {
+            var1.setVisible(false);
+            var2.setVisible(false);
+            var3.setVisible(false);
             setVisible(false);
             new Main();
         }

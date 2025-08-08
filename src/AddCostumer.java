@@ -239,6 +239,6 @@ public class AddCostumer extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new AddCostumer("srajan");
+        new AddCostumer("srajan").setVisible(true);;
     }
 }

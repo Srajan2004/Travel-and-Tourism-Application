@@ -98,6 +98,6 @@ public class CheckPackages extends JFrame {
     }
 
     public static void main(String[] args) {
-        new CheckPackages();
+        new CheckPackages().setVisible(true);
     }
 }

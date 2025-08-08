@@ -205,6 +205,6 @@ public class ViewCustomer extends JFrame {
     }
 
     public static void main(String[] args) {
-        new ViewCustomer("srajan");
+        new ViewCustomer("srajan").setVisible(true);
     }
 }
