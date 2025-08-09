@@ -13,7 +13,6 @@ public class BookPackages extends JFrame {
 
         BookPackages() {
                 setLayout(null);
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 ImageIcon logo = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png"));
                 setIconImage(logo.getImage());
                 getContentPane().setBackground(Color.white);
@@ -83,10 +82,10 @@ public class BookPackages extends JFrame {
                 
 
 
-                setVisible(true);
+                
         }
 
         public static void main(String[] args) {
-                new BookPackages();
+                new BookPackages().setVisible(true);
         }
 }
