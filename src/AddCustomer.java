@@ -5,30 +5,20 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-public class AddCostumer extends JFrame implements ActionListener {
+public class AddCustomer extends JFrame implements ActionListener {
     JLabel lblusername, lablename;
-    JComboBox idComboBox;
+    JComboBox<String> idComboBox;
     JTextField verification_number, countrytf, addresstf, emailtf, phonenumbertf;
     JButton addButton, backButton;
     JRadioButton male, female;
-
     String username;
 
-    AddCostumer(String username) {
+    AddCustomer(String username) {
         this.username = username;
         setBounds(450, 200, 850, 550);
-        ImageIcon logo = new ImageIcon(ClassLoader.getSystemResource("icons/logo.png"));
-        setIconImage(logo.getImage());
+        setIconImage(new ImageIcon(ClassLoader.getSystemResource("icons/logo.png")).getImage());
         setLayout(null);
         setUndecorated(true);
         getContentPane().setBackground(Color.WHITE);
@@ -45,7 +35,7 @@ public class AddCostumer extends JFrame implements ActionListener {
         lblid.setBounds(30, 90, 150, 25);
         add(lblid);
 
-        idComboBox = new JComboBox<>(new String[] { "Passport", "Adhar Card", "Pan Card", "Driving License" });
+        idComboBox = new JComboBox<>(new String[]{"Passport", "Adhar Card", "Pan Card", "Driving License"});
         idComboBox.setBounds(220, 90, 150, 25);
         idComboBox.setBackground(Color.WHITE);
         add(idComboBox);
@@ -77,7 +67,7 @@ public class AddCostumer extends JFrame implements ActionListener {
 
         female = new JRadioButton("Female");
         female.setBounds(300, 210, 70, 25);
-        female.setBackground(Color.white);
+        female.setBackground(Color.WHITE);
         add(female);
 
         ButtonGroup bg = new ButtonGroup();
@@ -118,16 +108,16 @@ public class AddCostumer extends JFrame implements ActionListener {
 
         addButton = new JButton("Add");
         addButton.setBounds(70, 430, 100, 25);
-        addButton.setBackground(Color.black);
+        addButton.setBackground(Color.BLACK);
+        addButton.setForeground(Color.WHITE);
         addButton.addActionListener(this);
-        addButton.setForeground(Color.white);
         add(addButton);
 
         backButton = new JButton("Back");
         backButton.setBounds(220, 430, 100, 25);
+        backButton.setBackground(Color.BLACK);
+        backButton.setForeground(Color.WHITE);
         backButton.addActionListener(this);
-        backButton.setBackground(Color.black);
-        backButton.setForeground(Color.white);
         add(backButton);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/newcustomer.jpg"));
@@ -136,25 +126,26 @@ public class AddCostumer extends JFrame implements ActionListener {
         JLabel image = new JLabel(i3);
         image.setBounds(400, 40, 450, 420);
         add(image);
+
+        // Fetch user info from DB
         Conn con = null;
         try {
             con = new Conn();
-            String query = "Select *from account Where Binary username = ?";
-            PreparedStatement ps = con.c.prepareStatement(query);
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                lblusername.setText(rs.getString("username"));
-                lablename.setText(rs.getString("name"));
-
+            String query = "SELECT * FROM account WHERE BINARY username = ?";
+            try (PreparedStatement ps = con.c.prepareStatement(query)) {
+                ps.setString(1, username);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        lblusername.setText(rs.getString("username"));
+                        lablename.setText(rs.getString("name"));
+                    }
+                }
             }
-
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Database error occurred  Please try again.",
+            JOptionPane.showMessageDialog(this, "Database error occurred. Please try again.",
                     "Database Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         } finally {
-
             if (con != null) {
                 con.close();
             }
@@ -162,62 +153,80 @@ public class AddCostumer extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-
         if (ae.getSource() == addButton) {
             String id = (String) idComboBox.getSelectedItem();
-            String number = verification_number.getText();
-            String name = lablename.getText();
-            String country = countrytf.getText();
-            String email = emailtf.getText();
-            String address = addresstf.getText();
-            String phonenumber = phonenumbertf.getText();
+            String number = verification_number.getText().trim();
+            String name = lablename.getText().trim();
+            String country = countrytf.getText().trim();
+            String email = emailtf.getText().trim();
+            String address = addresstf.getText().trim();
+            String phonenumber = phonenumbertf.getText().trim();
             String gender = null;
             if (male.isSelected()) {
                 gender = "Male";
             } else if (female.isSelected()) {
                 gender = "Female";
+            } else {
+                gender = "";
             }
-            if (number.equals("")) {
-                JOptionPane.showMessageDialog(this, "PLease enter a valid verification number of your ID");
+
+            // --- Validation Section ---
+            if (number.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid verification number of your ID");
                 return;
-            } else if (gender.equals("")) {
-                JOptionPane.showMessageDialog(this, "Please Select the Gender");
+            } else if (gender.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please select the gender");
                 return;
-            } else if (country.equals("")) {
+            } else if (country.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter the country name");
                 return;
-            } else if (email.equals("")) {
+            } else if (!country.matches("^[A-Za-z\\s]+$")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid country name (letters and spaces only)");
+                return;
+            } else if (address.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter the address");
+                return;
+            } else if (phonenumber.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter the phone number");
+                return;
+            } else if (!phonenumber.matches("\\d{10}")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid 10-digit phone number");
+                return;
+            } else if (email.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Please enter the email");
                 return;
-            } else if (address.equals("")) {
-                JOptionPane.showMessageDialog(this, "PLease enter the address");
-                return;
-            } else if (phonenumber.equals("")) {
-                JOptionPane.showMessageDialog(this, "Please enter the phone number");
+            } else if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid email address");
                 return;
             }
 
+            // --- Insert/Update Customer in DB ---
             Conn con = null;
             try {
                 con = new Conn();
-                String deleteQuery = "DELETE FROM customer WHERE username = ?";
-                PreparedStatement deletePs = con.c.prepareStatement(deleteQuery);
-                deletePs.setString(1, username);
-                deletePs.executeUpdate();
-                
-                String query = "INSERT INTO customer (username,id, number, name, gender, country, address, phonenumber,email)VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
-                PreparedStatement ps = con.c.prepareStatement(query);
-                ps.setString(1, username);
-                ps.setString(2, id);
-                ps.setString(3, number);
-                ps.setString(4, name);
-                ps.setString(5, gender);
-                ps.setString(6, country);
-                ps.setString(7, address);
-                ps.setString(8, phonenumber);
-                ps.setString(9, email);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Your information has been added succesfully");
+                // Delete old entry (optional, can switch to UPDATE or UPSERT)
+                String deleteQuery = "DELETE FROM customer WHERE BINARY username = ?";
+                try (PreparedStatement deletePs = con.c.prepareStatement(deleteQuery)) {
+                    deletePs.setString(1, username);
+                    deletePs.executeUpdate();
+                }
+
+                // Insert new entry
+                String query = "INSERT INTO customer (username, id, number, name, gender, country, address, phonenumber, email) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement ps = con.c.prepareStatement(query)) {
+                    ps.setString(1, username);
+                    ps.setString(2, id);
+                    ps.setString(3, number);
+                    ps.setString(4, name);
+                    ps.setString(5, gender);
+                    ps.setString(6, country);
+                    ps.setString(7, address);
+                    ps.setString(8, phonenumber);
+                    ps.setString(9, email);
+                    ps.executeUpdate();
+                }
+                JOptionPane.showMessageDialog(this, "Your information has been added successfully");
                 setVisible(false);
 
             } catch (SQLException e) {
@@ -231,14 +240,12 @@ public class AddCostumer extends JFrame implements ActionListener {
                     con.close();
                 }
             }
-
         } else if (ae.getSource() == backButton) {
-
             setVisible(false);
         }
     }
 
     public static void main(String[] args) {
-        new AddCostumer("srajan").setVisible(true);;
+        new AddCustomer("srajan").setVisible(true);
     }
 }

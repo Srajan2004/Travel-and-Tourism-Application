@@ -16,16 +16,17 @@ public class Dashboard extends JFrame implements ActionListener {
             bookpackage, viewpackage, viewhotels, bookhotel, viewbookedbookhotel, destinations, payments, calculator,
             notepad, about, exit;
     String username;
-    AddCostumer var1;//variabels to hold the class objects of the Button classes to get more reliable interface :
+    AddCustomer var1;//variabels to hold the class objects of the Button classes to get more reliable interface :
     ViewCustomer var2;
     CheckPackages var3;
     BookPackages var4 ;
 
     Dashboard(String username) {
         this.username = username;
-        var1 = new AddCostumer(username);
+        var1 = new AddCustomer(username);
         var2 = new ViewCustomer(username);
         var3 = new CheckPackages();
+        var4 = new BookPackages(username);
         // Frame Settings:
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(null);
@@ -214,19 +215,30 @@ public class Dashboard extends JFrame implements ActionListener {
         if (ae.getSource() == addpersonaldetail) {
             var2.setVisible(false);
             var3.setVisible(false);
+            var4.setVisible(false);
             var1.setVisible(true);
         } else if (ae.getSource() == viewpersonaldetail) {
             var1.setVisible(false);
             var3.setVisible(false);
+            var4.setVisible(false);
             var2.setVisible(true);
         } else if (ae.getSource() == checkpackages) {
             var1.setVisible(false);
             var2.setVisible(false);
+            var4.setVisible(false);
             var3.setVisible(true);
-        } else if (ae.getSource() == exit) {
+        } 
+        else if (ae.getSource()== bookpackage){
             var1.setVisible(false);
             var2.setVisible(false);
             var3.setVisible(false);
+            var4.setVisible(true);
+        }
+        else if (ae.getSource() == exit) {
+            var1.setVisible(false);
+            var2.setVisible(false);
+            var3.setVisible(false);
+            var4.setVisible(false);
             setVisible(false);
             new Main();
         }
